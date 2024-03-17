@@ -10,7 +10,7 @@ class Command(BaseCommand):
     @staticmethod
     def json_read_categories():
         try:
-            with open('category_data.json') as f:
+            with open('catalog_data.json', encoding='utf-8') as f:
                 json_loader = json.load(f)
             category_list = []
             for item in json_loader:
@@ -18,13 +18,13 @@ class Command(BaseCommand):
                     category_list.append({'name': item['fields']['name'],
                                           'description': item['fields']['description']})
             return category_list
-        except Exception:
-            raise Exception
+        except:
+            return []
 
     @staticmethod
     def json_read_products():
         try:
-            with open('category_data.json') as f:
+            with open('catalog_data.json', encoding='utf-8') as f:
                 json_loader = json.load(f)
             product_list = []
             for item in json_loader:
@@ -32,14 +32,14 @@ class Command(BaseCommand):
                     product_list.append({'name': item['fields']['name'],
                                          'description': item['fields']['description'],
                                          'image': item['fields']['image'],
-                                         'category': item['fields']['category'],
+                                         'category': Category.objects.get(pk=item['fields']['category']),
                                          'price': item['fields']['price'],
                                          'created_at': item['fields']['created_at'],
                                          'updated_at': item['fields']['updated_at'],
                                          })
             return product_list
-        except Exception:
-            raise Exception
+        except:
+            return []
 
     def handle(self, *args, **options):
 

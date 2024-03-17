@@ -1,0 +1,44 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 25,
+    "fields": {
+      "name": "phone",
+      "description": "for call"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 26,
+    "fields": {
+      "name": "TV",
+      "description": "watch"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "iphone",
+      "description": "...",
+      "image": "",
+      "category": 25,
+      "price": 80000,
+      "created_at": null,
+      "updated_at": null
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "name": "tv",
+      "description": "...",
+      "image": "",
+      "category": 26,
+      "price": 45000,
+      "created_at": null,
+      "updated_at": null
+    }
+  }
+]
