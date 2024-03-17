@@ -15,7 +15,8 @@ class Command(BaseCommand):
             category_list = []
             for item in json_loader:
                 if item['model'] == "catalog.category":
-                    category_list.append({'name': item['fields']['name'],
+                    category_list.append({'id': item['pk'],
+                                          'name': item['fields']['name'],
                                           'description': item['fields']['description']})
             return category_list
         except:
@@ -29,14 +30,8 @@ class Command(BaseCommand):
             product_list = []
             for item in json_loader:
                 if item['model'] == "catalog.product":
-                    product_list.append({'name': item['fields']['name'],
-                                         'description': item['fields']['description'],
-                                         'image': item['fields']['image'],
-                                         'category': Category.objects.get(pk=item['fields']['category']),
-                                         'price': item['fields']['price'],
-                                         'created_at': item['fields']['created_at'],
-                                         'updated_at': item['fields']['updated_at'],
-                                         })
+                    product_list.append(item['fields'])
+
             return product_list
         except:
             return []
@@ -64,7 +59,14 @@ class Command(BaseCommand):
         # Обходим все значения продуктов из фиктсуры для получения информации об одном объекте
         for product in Command.json_read_products():
             product_for_create.append(
-                Product(**product)
+                Product(name=product['name'],
+                        description=product['description'],
+                        image=product['image'],
+                        category=Category.objects.get(pk=product['category']),
+                        price=product['price'],
+                        created_at=product['created_at'],
+                        updated_at=product['updated_at'],
+                        )
             )
 
         # Создаем объекты в базе с помощью метода bulk_create()

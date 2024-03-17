@@ -17,7 +17,7 @@
   },
   {
     "model": "catalog.product",
-    "pk": 4,
+    "pk": 11,
     "fields": {
       "name": "iphone",
       "description": "...",
@@ -30,13 +30,26 @@
   },
   {
     "model": "catalog.product",
-    "pk": 5,
+    "pk": 12,
     "fields": {
       "name": "tv",
       "description": "...",
       "image": "",
       "category": 26,
       "price": 45000,
+      "created_at": null,
+      "updated_at": null
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 13,
+    "fields": {
+      "name": "xiaomi",
+      "description": "by xiaomi",
+      "image": "",
+      "category": 25,
+      "price": 35000,
       "created_at": null,
       "updated_at": null
     }
