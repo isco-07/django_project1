@@ -1,7 +1,7 @@
 [
   {
     "model": "catalog.category",
-    "pk": 25,
+    "pk": 97,
     "fields": {
       "name": "phone",
       "description": "for call"
@@ -9,20 +9,20 @@
   },
   {
     "model": "catalog.category",
-    "pk": 26,
+    "pk": 98,
     "fields": {
       "name": "TV",
-      "description": "watch"
+      "description": "for watch"
     }
   },
   {
     "model": "catalog.product",
-    "pk": 11,
+    "pk": 23,
     "fields": {
       "name": "iphone",
-      "description": "...",
+      "description": "phone",
       "image": "",
-      "category": 25,
+      "category": 97,
       "price": 80000,
       "created_at": null,
       "updated_at": null
@@ -30,12 +30,25 @@
   },
   {
     "model": "catalog.product",
-    "pk": 12,
+    "pk": 24,
     "fields": {
-      "name": "tv",
-      "description": "...",
+      "name": "TV samsung",
+      "description": "TV",
       "image": "",
-      "category": 26,
+      "category": 98,
+      "price": 65000,
+      "created_at": null,
+      "updated_at": null
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 25,
+    "fields": {
+      "name": "xiaomi",
+      "description": "phone for games",
+      "image": "",
+      "category": 97,
       "price": 45000,
       "created_at": null,
       "updated_at": null
@@ -43,13 +56,13 @@
   },
   {
     "model": "catalog.product",
-    "pk": 13,
+    "pk": 26,
     "fields": {
-      "name": "xiaomi",
-      "description": "by xiaomi",
+      "name": "sony",
+      "description": "phone for make picture",
       "image": "",
-      "category": 25,
-      "price": 35000,
+      "category": 97,
+      "price": 75000,
       "created_at": null,
       "updated_at": null
     }
