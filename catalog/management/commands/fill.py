@@ -19,7 +19,8 @@ class Command(BaseCommand):
                                           'name': item['fields']['name'],
                                           'description': item['fields']['description']})
             return category_list
-        except:
+        except FileNotFoundError as err:
+            print(err)
             return []
 
     @staticmethod
@@ -30,10 +31,19 @@ class Command(BaseCommand):
             product_list = []
             for item in json_loader:
                 if item['model'] == "catalog.product":
-                    product_list.append(item['fields'])
+                    product_list.append({'id': item['pk'],
+                                         'name': item['fields']['name'],
+                                         'description': item['fields']['description'],
+                                         'image': item['fields']['image'],
+                                         'category': Category.objects.get(pk=item['fields']['category']),
+                                         'price': item['fields']['price'],
+                                         'created_at': item['fields']['created_at'],
+                                         'updated_at': item['fields']['updated_at'],
+                                         })
 
             return product_list
-        except:
+        except FileNotFoundError as err:
+            print(err)
             return []
 
     def handle(self, *args, **options):
@@ -59,14 +69,7 @@ class Command(BaseCommand):
         # Обходим все значения продуктов из фиктсуры для получения информации об одном объекте
         for product in Command.json_read_products():
             product_for_create.append(
-                Product(name=product['name'],
-                        description=product['description'],
-                        image=product['image'],
-                        category=Category.objects.get(pk=product['category']),
-                        price=product['price'],
-                        created_at=product['created_at'],
-                        updated_at=product['updated_at'],
-                        )
+                Product(**product)
             )
 
         # Создаем объекты в базе с помощью метода bulk_create()
