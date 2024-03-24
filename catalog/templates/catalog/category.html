@@ -1,18 +1,18 @@
 {% extends 'catalog/base.html' %}
 {% block content %}
-{% for object in objects_list %}
+{% for i in category %}
 <div class="container">
     <div class="row text-center">
         <div class="col-3">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
-                    <h1 class="my-0 font-weight-normal">{{ object.name|title }}</h1>
+                    <h1 class="my-0 font-weight-normal">{{i.name}}</h1>
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title pricing-card-title">{{object.description}}</h4>
+                    <p class="card-title pricing-card-title">{{i.description|truncatechars:100}}</p>
 
-                    <a href="{% url 'catalog:category' object.pk %}" type="button"
-                       class="btn btn-lg btn-block btn-outline-primary">Список товаров</a>
+                    <a href="{% url 'catalog:product' i.pk %}" type="button"
+                       class="btn btn-lg btn-block btn-outline-primary">Инфо</a>
                 </div>
             </div>
         </div>
