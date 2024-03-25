@@ -1,0 +1,26 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <div class="col-4">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h1 class="my-0 font-weight-normal">{{ product.name }}</h1>
+                </div>
+                <p class="card-title pricing-card-title">Характеристики:</p>
+                <p class="card-title pricing-card-title">Описание :{{product.description}}</p>
+                <p class="card-title pricing-card-title">Категория: {{product.category}}</p>
+                <p class="card-title pricing-card-title">Цена: {{product.price}}</p>
+                <p class="card-title pricing-card-title">Дата добавления товара: {{product.created_at}}</p>
+                <p class="card-title pricing-card-title">Дата обновления товара: {{product.updated_at}}</p>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card mb-4 box-shadow">
+                <img class="card-img-top" src="{{product.image|mimedia}}" alt="Card image cap">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
