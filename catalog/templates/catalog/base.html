@@ -1,0 +1,30 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+{% include 'catalog/includes/inc_title.html' %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">{{ title }}</h1>
+    <p class="lead">У нас идеальный баланс цены и качества</p>
+</div>
+{% block content %}
+{% endblock %}
+<footer class="pt-4 my-md-5 pt-md-5 border-top">
+    <div class="row">
+        <div class="col-12 col-md">
+            {{ title }}
+            <small class="d-block mb-3 text-muted">&copy; {% now 'Y' %}</small>
+        </div>
+
+    </div>
+</footer>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"
+        crossorigin="anonymous"></script>
+</body>
+</html>
