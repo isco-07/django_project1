@@ -1,14 +1,9 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy, reverse
+from django.views.generic import DetailView, ListView, View, CreateView, UpdateView, DeleteView
+from pytils.translit import slugify
 
-from catalog.models import Product, Category
-
-
-def home(request):
-    context = {
-        'objects_list': Category.objects.all(),
-        'title': 'Магазин'
-    }
-    return render(request, 'catalog/home.html', context)
+from catalog.models import Product, Blog
 
 
 def contacts(request):
@@ -20,16 +15,65 @@ def contacts(request):
     return render(request, 'catalog/contacts.html')
 
 
-def category(request, pk):
-    context = {
-        'category': Product.objects.filter(category=pk),
-        'title': 'Список товаров'
-    }
-    return render(request, 'catalog/category.html', context)
+class ProductDetailView(DetailView):
+    model = Product
 
 
-def product(request, pk):
-    context = {
-        'product': Product.objects.get(pk=pk)
-    }
-    return render(request, 'catalog/product.html', context)
+class ProductListView(ListView):
+    model = Product
+
+
+class ContactView(View):
+    def get(self, request):
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            phone = request.POST.get('phone')
+            message = request.POST.get('message')
+            print(f'{name}({phone}): {message}')
+        return render(request, 'catalog/contacts.html')
+
+
+class BlogListView(ListView):
+    model = Blog
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        queryset = queryset.filter(is_published=True)
+        return queryset
+
+
+class BlogDetailView(DetailView):
+    model = Blog
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        self.object.views_count += 1
+        self.object.save()
+        return self.object
+
+
+class BlogCreateView(CreateView):
+    model = Blog
+    fields = ('title', 'content')
+    success_url = reverse_lazy('catalog:blog_list')
+
+    def form_valid(self, form):
+        if form.is_valid:
+            new_mat = form.save()
+            new_mat.slug = slugify(new_mat.title)
+            new_mat.save()
+        return super().form_valid(form)
+
+
+class BlogUpdateView(UpdateView):
+    model = Blog
+    fields = ('title', 'content')
+    success_url = reverse_lazy('catalog:blog_list')
+
+    def get_success_url(self):
+        return reverse('catalog:blog_view', args=[self.kwargs.get('pk')])
+
+
+class BlogDeleteView(DeleteView):
+    model = Blog
+    success_url = reverse_lazy('catalog:blog_list')
