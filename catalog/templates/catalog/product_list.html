@@ -1,5 +1,8 @@
 {% extends 'catalog/base.html' %}
 {% block content %}
+<div class="col-12 mb-5" align="center">
+    <a class="btn btn-outline-primary" href="{% url 'catalog:product_create' %}">Новый продукт</a>
+</div>
 {% for object in object_list %}
 <div class="container">
     <div class="row text-center">
@@ -10,9 +13,16 @@
                 </div>
                 <div class="card-body">
                     <h4 class="card-title pricing-card-title">{{object.description}}</h4>
+                    <div class="btn-group">
 
-                    <a href="{% url 'catalog:product_view' object.pk %}" type="button"
-                       class="btn btn-lg btn-block btn-outline-primary">Инфо товара</a>
+                        <a href="{% url 'catalog:product_view' object.pk %}" type="button"
+                           class="btn btn-sm btn-outline-secondary">Инфо товара</a>
+                        <a type="button" class="btn btn-sm btn-outline-secondary"
+                           href="{% url 'catalog:product_update' object.pk %}">Редактировать
+                        </a>
+                        <a type="button" class="btn btn-sm btn-outline-danger"
+                           href="{% url 'catalog:product_delete' object.pk %}">Удалить</a>
+                    </div>
                 </div>
             </div>
         </div>

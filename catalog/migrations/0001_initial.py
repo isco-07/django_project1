@@ -7,25 +7,53 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=250, verbose_name='наименование')),
-                ('description', models.TextField(verbose_name='описание')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='catalog/', verbose_name='изображение')),
-                ('category', models.CharField(max_length=250, verbose_name='категория')),
-                ('price', models.IntegerField(verbose_name='цена за покупку')),
-                ('created_at', models.DateField(blank=True, null=True, verbose_name='дата создания')),
-                ('updated_at', models.DateField(blank=True, null=True, verbose_name='дата изменения')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=250, verbose_name="наименование")),
+                ("description", models.TextField(verbose_name="описание")),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                        upload_to="catalog/",
+                        verbose_name="изображение",
+                    ),
+                ),
+                (
+                    "category",
+                    models.CharField(max_length=250, verbose_name="категория"),
+                ),
+                ("price", models.IntegerField(verbose_name="цена за покупку")),
+                (
+                    "created_at",
+                    models.DateField(
+                        blank=True, null=True, verbose_name="дата создания"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateField(
+                        blank=True, null=True, verbose_name="дата изменения"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'наименование',
-                'verbose_name_plural': 'наименования',
+                "verbose_name": "наименование",
+                "verbose_name_plural": "наименования",
             },
         ),
     ]

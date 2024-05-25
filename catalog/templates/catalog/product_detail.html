@@ -12,8 +12,19 @@
                 <p class="card-title pricing-card-title">Описание :{{object.description}}</p>
                 <p class="card-title pricing-card-title">Категория: {{object.category}}</p>
                 <p class="card-title pricing-card-title">Цена: {{object.price}}</p>
-                <p class="card-title pricing-card-title">Дата добавления товара: {{object.created_at}}</p>
-                <p class="card-title pricing-card-title">Дата обновления товара: {{object.updated_at}}</p>
+                {% if object.created_at is None %}
+
+                {% else %}
+                    <p class="card-title pricing-card-title">Дата добавления товара: {{object.created_at}}</p>
+                {% endif %}
+                {% if object.updated_at is None %}
+
+                {% else %}
+                    <p class="card-title pricing-card-title">Дата обновления товара: {{object.updated_at}}</p>
+                {% endif %}
+                {% if current_version %}
+                <h6 class="card-title pricing-card-title">Версия {{ current_version }}</h6>
+                {% endif %}
             </div>
         </div>
         <div class="col-4">
