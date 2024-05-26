@@ -19,6 +19,7 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         exclude = (
             "created_at",
             "updated_at",
+            "owner",
         )
 
     def clean_name(self):
