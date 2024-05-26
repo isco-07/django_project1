@@ -1,8 +1,10 @@
 {% extends 'catalog/base.html' %}
 {% block content %}
+{% if user.is_authenticated %}
 <div class="col-12 mb-5" align="center">
     <a class="btn btn-outline-primary" href="{% url 'catalog:product_create' %}">Новый продукт</a>
 </div>
+{% endif %}
 {% for object in object_list %}
 <div class="container">
     <div class="row text-center">

@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.forms import inlineformset_factory
 from django.shortcuts import render
@@ -25,7 +26,7 @@ def contacts(request):
     return render(request, "catalog/contacts.html")
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(CreateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy("catalog:product_list")
@@ -41,24 +42,14 @@ class ProductCreateView(CreateView):
         return context
 
     def form_valid(self, form):
-        context_data = self.get_context_data()
-        formset = context_data["formset"]
-        with transaction.atomic():
-            if form.is_valid():
-                self.object = form.save(commit=False)
-                self.object.owner = self.request.user
-                self.object.save()
-                if formset.is_valid():
-                    formset.instance = self.object
-                    formset.save()
-                return super().form_valid(form)
-            else:
-                return self.render_to_response(
-                    self.get_context_data(form=form, formset=formset)
-                )
+        product = form.save()
+        user = self.request.user
+        product.owner = user
+        product.save()
+        return super().form_valid(form)
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(DetailView, LoginRequiredMixin):
     model = Product
 
     def get_context_data(self, **kwargs):
@@ -69,7 +60,7 @@ class ProductDetailView(DetailView):
         return context
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(UpdateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy("catalog:product_list")
@@ -100,12 +91,12 @@ class ProductUpdateView(UpdateView):
             )
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(DeleteView, LoginRequiredMixin):
     model = Product
     success_url = reverse_lazy("catalog:product_list")
 
 
-class ProductListView(ListView):
+class ProductListView(ListView, LoginRequiredMixin):
     model = Product
 
 
